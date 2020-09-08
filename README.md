@@ -16,7 +16,7 @@ Dependencies: Python (3.x), PyPDF2.
 
 `Usage: remAnnot.py <PDF Files>`
 
-This script will *remove* the PDF annotation layer (highlights, etc.) in a PDF file.  I use it to remove all annotations before I send a file for printing.  **WARNING: It may miss annotations that are flattend into the file. Always manually check before use.**.
+This script will *remove* the PDF annotation layer (highlights, etc.) in a PDF file.  I use it to remove all annotations before I send a file for printing.  **WARNING: It may miss annotations that are flattend into the file. Always manually check before use.**
 
 Dependencies: Python (3.x), PyPDF2.
 
