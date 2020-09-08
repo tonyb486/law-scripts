@@ -8,7 +8,7 @@ These scripts are released AS-IS with ABSOLUTELY NO WARRANTY under the MIT licen
 
 `Usage: checkAnnot.py <PDF Files>`
 
-This script will check for the presence of a PDF annotation layer(highlights, etc.) in a PDF file, and echo the pages that have such a layer.  I use it to check that I've successfully removed all annotations before I send a file for printing.  **WARNING: It may miss annotations that are flattend into the file**.
+This script will check for the presence of a PDF annotation layer(highlights, etc.) in a PDF file, and echo the pages that have such a layer.  I use it to check that I've successfully removed all annotations before I send a file for printing.  It is also useful for finding pages that have annotations on them in many file and listing them to be flagged when printed out.  **WARNING: It may miss annotations that are flattend into the file**.
 
 Dependencies: Python (3.x), PyPDF2.
 
