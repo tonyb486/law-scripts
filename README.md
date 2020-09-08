@@ -20,9 +20,9 @@ This script will *remove* the PDF annotation layer (highlights, etc.) in a PDF f
 
 Dependencies: Python (3.x), PyPDF2.
 
-## encrypt.sh
+## encryptDocs.sh
 
-`Usage: encrypt.sh <PDF files>`
+`Usage: encryptDocs.sh <PDF files>`
 
 This script will create a folder `Encrypted` containing PDFs encrypted with random passwords using PDF encryption (AES, 128-bit, Acrobat Reader 7.0+).  It will create a file `pwlist.txt` listing the passwords for each file.
 
