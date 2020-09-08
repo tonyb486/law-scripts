@@ -26,6 +26,10 @@ This script will create a folder `Encrypted` containing PDFs encrypted with rand
 
 Dependencies: UNIX Shell (I use zsh or bash), qpdf, pwgen.
 
+## stampLabel.py
 
+`Usage: stampLabel.py [PDF Input] [PDF Output] [Exhibit Title] [Case Title] [Case Number]`
 
+This script will add a yellow exhibit stamp to a PDF file in the top-left corner.  The exhibit stamp contains the title (*e.g.*, Exhibit A), and room for the case title and the case number below it.  As with any shell invocation, enter arguments in quotes if they contain spaces.
 
+Dependencies: Python (3.x), PyPDF2, Reportlab.
