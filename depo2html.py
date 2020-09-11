@@ -84,7 +84,7 @@ buffer = """
     <div id="innerControls">
         <div style="text-align: center; font-weight: bold">Controls</div>
         <br />
-        <input type="checkbox" onchange="toggleClass('.lineno', 'hidden')" checked>Show Line Numbers</input>
+        <input type="checkbox" onchange="toggleClass('.lineno', 'hidden')" checked>Show line numbers</input>
         <br />
         <input type="checkbox" onchange="toggleClass('.line', 'inline')" checked>Match transcript lines</input>
         <hr />
