@@ -1,4 +1,4 @@
-These are a few scripts that I have used in law practice to automate tasks that are tedious and error-prone to perform manually.  They mostly relate to PDF files. 
+These are a few scripts that I have used in law practice to automate tasks that are tedious and error-prone to perform manually.  They're short, quick hacks that I find effective with some manual checking and intervention.
 
 These scripts are released AS-IS with ABSOLUTELY NO WARRANTY under the MIT license.  See the `LICENSE` file for details. Whenever I use them, I manually check the output to make sure it is sensible.
 
