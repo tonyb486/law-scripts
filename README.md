@@ -33,3 +33,11 @@ Dependencies: UNIX Shell (I use zsh or bash), qpdf, pwgen.
 This script will add a yellow exhibit stamp to a PDF file in the top-left corner.  The exhibit stamp contains the title (*e.g.*, Exhibit A), and room for the case title and the case number below it.  As with any shell invocation, enter arguments in quotes if they contain spaces.
 
 Dependencies: Python (3.x), PyPDF2, Reportlab.
+
+## depo2html.py
+
+`Usage: depo2html.py  [ASCII Deposition File] [HTML Output File]`
+
+This is a (somewhat sloppy) script that attempts to reformat an ASCII deposition file into a more easily readable HTML file.  It's just a quick and dirty set of regular expressions, so your mileage may vary, but I find it much easier to read in this format than the original formatting.
+
+Dependencies: Python (3.x).
