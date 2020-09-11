@@ -30,6 +30,10 @@ buffer = """
             display: inline;
         }
 
+        .bold {
+            font-weight: bold;
+        }
+
         span.question {
         }
 
@@ -102,6 +106,10 @@ buffer = """
         <input type="checkbox" onchange="toggleClass('.lineno', 'hidden')" checked>Show line numbers</input>
         <br />
         <input type="checkbox" onchange="toggleClass('.line', 'inline')" checked>Match transcript lines</input>
+        <br />
+        <input type="checkbox" onchange="toggleClass('.question', 'bold')">Show questions bold</input>
+        <br />
+
         <hr />
         Font Size:
         <input type="button" onclick="changeFontSize('up')" value="+">
