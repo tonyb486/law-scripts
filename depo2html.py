@@ -31,7 +31,7 @@ buffer = """
             height:0px; width:0px;
             user-select: none;
         }
-    </style><span>
+    </style>
     """
 
 with open(sys.argv[1], "r") as fd:
@@ -50,28 +50,26 @@ with open(sys.argv[1], "r") as fd:
                 if re.match(r"^[0-9]*[ ]*Q[\. ]", line): 
                     line = re.sub(r"^([0-9]*[ ]*)Q[\. ]", r"\1<b>Q.</b>", line)
                     lineClass = "question"
-                    lineBreak = True
+                    buffer += "<br />"
 
                 # Match answers
                 elif re.match(r"^[0-9]*[ ]*A[\. ]", line): 
                     line = re.sub(r"^([0-9]*[ ]*)A[\. ]", r"\1<b>A.</b>", line)
                     lineClass = "answer"
-                    lineBreak = True
+                    buffer += "<br />"
 
                 # Match comments/objections/etc
                 elif re.match(r"^[0-9]*[ ]*[A-Z][A-Z .]+\:", line):
-                    line = re.sub(r"^([0-9]*[ ]*)([A-Z][A-Z .]+\:)", "\\1<b>\\2</b>", line)
+                    line = re.sub(r"^([0-9]*[ ]*)([A-Z][A-Z .]+\:)", r"\1<b>\2</b>", line)
                     lineClass = "comment"
-                    lineBreak = True
+                    buffer += "<br />"
 
                 # Output the line with some basic HTML formatting
-                line = re.sub(r"^([0-9]*)[ ]*", r"</span>\n%s<span class='lineno'>%d:\1</span><span class='line %s'>" 
-                                                % ("<br />" if lineBreak else "", 
-                                                    pageNo,
-                                                    lineClass),
-                                                line)
+                line = re.sub(r"^([0-9]*)[ ]*(.*)", r"<span class='lineno'>%d:\1</span><span class='line %s'>\2 </span>\n" 
+                                                % ( pageNo,  lineClass), line)
                     
-                buffer += line+" "
+                buffer += line
+
         else: 
             if int(line) == pageNo+1: 
                 pageNo += 1
