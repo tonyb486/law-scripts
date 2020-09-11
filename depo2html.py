@@ -54,7 +54,11 @@ buffer = """
             padding: 10px;
             top: 10px;
             right: 20px;
-            opacity: .5;
+            opacity: .25;
+        }
+
+        #controls:hover {
+            opacity: 1.0;
         }
         div.break {
             margin: 12px;
