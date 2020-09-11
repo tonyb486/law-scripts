@@ -14,9 +14,13 @@ buffer = """
     <style type='text/css'>
         body {  
              width: 500px; margin: 0px auto;
-             font-family: georgia;
              fontSize: 16px;
+             background: #f6f6ef;
         } 
+
+        div#body {
+            font-family: georgia;
+        }
 
         span { 
             display:block;
@@ -55,10 +59,12 @@ buffer = """
             top: 10px;
             right: 20px;
             opacity: .25;
+            transition: .5s linear;
         }
 
         #controls:hover {
             opacity: 1.0;
+            transition: .5s linear;
         }
         div.break {
             margin: 12px;
@@ -76,8 +82,13 @@ buffer = """
             var body = document.querySelector('div#body');
             curFontSize = parseInt(body.style.fontSize)
             if (Number.isNaN(curFontSize)) curFontSize = 16
-            if(direction == "up")  body.style.fontSize = curFontSize+4
-            if(direction == "down")  body.style.fontSize = curFontSize-4
+            if(direction == "up")  body.style.fontSize = curFontSize+2
+            if(direction == "down")  body.style.fontSize = curFontSize-2
+        }
+
+        function setFont(font) {
+            var body = document.querySelector('div#body');
+            body.style.fontFamily = font;
         }
 
     </script>
@@ -95,6 +106,16 @@ buffer = """
         Font Size:
         <input type="button" onclick="changeFontSize('up')" value="+">
         <input type="button" onclick="changeFontSize('down')" value="-">
+        <br />
+        Font: <select onchange="setFont(this.value)">
+            <option value="Georgia">Georgia</option>
+            <option value="serif">Serif</option>
+            <option value="sans-serif">Sans-Serif</option>
+            <option value="Arial">Arial</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Courier">Courier</option>
+        </select> 
+
         <hr />
     </div>
     <div style="text-align: center">
