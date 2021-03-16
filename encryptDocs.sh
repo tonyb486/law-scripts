@@ -15,8 +15,14 @@ do
     newpdf="$(basename "$pdf" | sed 's/\..*/.pdf/')"
     echo $newpdf: "$pw" >> $tmp/pwlist
 
-    #echo "Encrypting..."
-    qpdf --encrypt $pw $pw 128 --use-aes=y -- "$tpdf" "Encrypted/$newpdf"
+    # Note for below:
+    # Change '256' to '128' if someone can't handle 256-bit encryption.
+    #
+    # For some reason, Microsoft Edge is the default Windows 10 PDF viewer,
+    # and it can't handle 256-bit AES.
+    #
+    
+    qpdf --encrypt $pw $pw 256 --use-aes=y -- "$tpdf" "Encrypted/$newpdf"
     cp "$pdf" "Original/$newpdf"
     rm "$tpdf"
 
