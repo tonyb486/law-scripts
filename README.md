@@ -6,15 +6,19 @@ These scripts are released AS-IS with ABSOLUTELY NO WARRANTY under the MIT licen
 
 `usage: patFetchFH.py <Patent Number>`
 
-Fetches the file history for a patent using the [PEDS API](https://ped.uspto.gov/peds/#!/) and the [IFW/CMS Archive](https://developer.uspto.gov/data/pair-archives) from the USPTO.  Requires PyPDF2.  May differ from the file history available on PAIR, and may be updated at different times.
+Fetches the file history for a patent using the [PEDS API](https://ped.uspto.gov/peds/#!/) and the [IFW/CMS Archive](https://developer.uspto.gov/data/pair-archives) from the USPTO.  May differ from the file history available on PAIR, and may be updated at different times.
+
+Dependencies: Python (3.x), PyPDF2.
 
 ## patFamilyTree.py
 
 `usage: patFamilyTree.py [-h] [--first] patent`
 
-`example usage: patFamilyTree.py <patent number> | dot -Tpdf > tree.pdf`
+`example: patFamilyTree.py <patent number> | dot -Tpdf > tree.pdf`
 
 A tool used for attempting to generate patent family trees.  Uses data from the [PEDS API](https://ped.uspto.gov/peds/#!/) from the USPTO.  It outputs data in the [dot](https://graphviz.org/doc/info/lang.html) format for use with [graphviz](https://graphviz.org/), which is required to actually generate a document.  It's still sloppy, and its output should be checked manually.  Use the `--first` option to only include an edge on the graph for the latest-filed parent of each application, and the first child application if applicable, which may greatly simplify more complicated family trees while still conveying the necessary information.
+
+Dependencies: Python (3.x), PyPDF2, Graphviz.
 
 ## checkAnnot.py
 
