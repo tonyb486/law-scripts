@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-# Edit if you want to use more threads, or if
-# jbig2enc is installed somewhere else.
+# Edit if you want to use more threads, or if jbig2enc is installed somewhere else.
+#
+# Ten threads makes my M1 Macbook Air warm to the touch with native arm64 binaries of
+# imagemagick and jbig2enc.
+#
 PDFTHREADS=10
 JBIG2PATH=
 

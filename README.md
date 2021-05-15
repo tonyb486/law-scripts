@@ -66,4 +66,4 @@ Dependencies: Python (3.x).
 
 Renders a PDF to flat 300dpi monochrome images using imagemagick, adds sequential page numbers, and compresses it down to a PDF with jbig2enc to reduce the file size.  This is kind of a hacky multithreaded shell script, so it might fail dramatically.
 
-Dependencies: (jbig2enc)[https://github.com/agl/jbig2enc], (imagemagick)[https://imagemagick.org/index.php], (ghostscript)[https://www.ghostscript.com/]
+Dependencies: [jbig2enc](https://github.com/agl/jbig2enc), [imagemagick](https://imagemagick.org/index.php), [ghostscript](https://www.ghostscript.com/)
