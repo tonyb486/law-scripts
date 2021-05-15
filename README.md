@@ -1,4 +1,4 @@
-These are a few scripts that I have used in law practice to automate tasks that are tedious and error-prone to perform manually.  They're short, quick hacks that I find effective with some manual checking and intervention.
+These are a few scripts that I have used in law practice to automate tasks that are tedious and error-prone to perform manually.  They're short, quick hacks that I find effective with some manual checking and intervention.  They should all be considered experimental.
 
 These scripts are released AS-IS with ABSOLUTELY NO WARRANTY under the MIT license.  See the `LICENSE` file for details. Whenever I use them, I manually check the output to make sure it is sensible.
 
@@ -59,3 +59,11 @@ Dependencies: Python (3.x), PyPDF2, Reportlab.
 This is a (somewhat sloppy) script that attempts to reformat an ASCII deposition file into a more easily readable HTML file.  It's just a quick and dirty set of regular expressions, so your mileage may vary, but I find it much easier to read in this format than the original formatting.
 
 Dependencies: Python (3.x).
+
+## pdfBates.sh
+
+`usage: ./pdfBates.sh [Starting Bates Number with Prefix] [Path to PDF Files...]`
+
+Renders a PDF to flat 300dpi monochrome images using imagemagick, adds sequential page numbers, and compresses it down to a PDF with jbig2enc to reduce the file size.  This is kind of a hacky multithreaded shell script, so it might fail dramatically.
+
+Dependencies: (jbig2enc)[https://github.com/agl/jbig2enc], (imagemagick)[https://imagemagick.org/index.php], (ghostscript)[https://www.ghostscript.com/]
