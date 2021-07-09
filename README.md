@@ -18,7 +18,15 @@ Dependencies: Python (3.x), PyPDF2.
 
 A tool used for attempting to generate patent family trees.  Uses data from the [PEDS API](https://ped.uspto.gov/peds/#!/) from the USPTO.  It outputs data in the [dot](https://graphviz.org/doc/info/lang.html) format for use with [graphviz](https://graphviz.org/), which is required to actually generate a document.  It's still sloppy, and its output should be checked manually.  Use the `--first` option to only include an edge on the graph for the latest-filed parent of each application, and the first child application if applicable, which may greatly simplify more complicated family trees while still conveying the necessary information.
 
-Dependencies: Python (3.x), PyPDF2, Graphviz.
+Dependencies: Python (3.x), Graphviz.
+
+## patFetch.py
+
+`usage: patFetch.py [patents...]`
+
+A tool used to fetch multiple patents from the USPTO PatFT.  Uses a small amount of screenscraping, so this script could break, and requires BeautifulSoup (bs4).  Takes a list of patent numbers as arguments, saves PDFs with the patent numbner.
+
+Dependencies: Python (3.x), BeautifulSoup (bs4)
 
 ## checkAnnot.py
 

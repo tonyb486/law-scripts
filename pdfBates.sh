@@ -14,7 +14,9 @@ BATES_PREFIX=$(echo $1 | sed 's/[0-9]*$//')
 BATES=$(echo $1 | sed 's/^'$BATES_PREFIX'//')
 BATES=$((10#$BATES+0))
 
-echo "Using bates prefix $BATES_PREFIX and starting from $BATES_PREFIX$BATES"
+if [ ! -z $BATES_PREFIX ]; then
+    echo "Using bates prefix $BATES_PREFIX and starting from $BATES_PREFIX$BATES"
+fi
 
 while test ${#} -gt 1
 do
@@ -30,12 +32,17 @@ do
     for x in `seq 0 $PDFTHREADS $PAGECOUNT`; do
         for i in `seq $x $(($x+$PDFTHREADS-1))`; do
             if [ $i -lt $PAGECOUNT ]; then
-                convert -density 300 -monochrome -depth 1 "$PDF[$i]" \
-                        -gravity southeast -annotate 0 "$(printf "$BATES_PREFIX%05d" $BATES)" \
-                        $TMPDIR/TMPIMG-%03d.png &
+                if [ -z $BATES_PREFIX ]; then
+                    convert -density 300 -monochrome -depth 1 "$PDF[$i]" \
+                    $TMPDIR/TMPIMG-%03d.png &
+                else 
+                    convert -density 300 -monochrome -depth 1 "$PDF[$i]" \
+                            -gravity southeast -annotate 0 "$(printf "$BATES_PREFIX%05d" $BATES)" \
+                            $TMPDIR/TMPIMG-%03d.png &
 
                 echo -n "...$(($i+1))"
                 BATES=$(($BATES+1))
+                fi
             fi
         done
         wait # wait until the 10 pages have rendered.
