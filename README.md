@@ -24,7 +24,7 @@ Dependencies: Python (3.x), Graphviz.
 
 `usage: patFetch.py [patents...]`
 
-A tool used to fetch multiple patents from the USPTO PatFT.  Uses a small amount of screenscraping, so this script could break, and requires BeautifulSoup (bs4).  Takes a list of patent numbers as arguments, saves PDFs with the patent numbner.
+A tool used to fetch multiple patents from the USPTO PatFT.  Uses a small amount of screenscraping, so this script could break, and requires BeautifulSoup (bs4)$$.  Takes a list of patent numbers as arguments, saves PDFs with the patent numbner.
 
 Dependencies: Python (3.x), BeautifulSoup (bs4)
 
