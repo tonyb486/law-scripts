@@ -11,7 +11,7 @@ if len(sys.argv) != 2:
 patNum = sys.argv[1]
 
 # Load document code names
-with open("/Users/tonyb/.local/share/docCodes.json", "r") as t: 
+with open("docCodes.json", "r") as t: 
     docCodes = json.loads(t.read())
 
 # Search for the application by patent number
