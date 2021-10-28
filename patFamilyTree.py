@@ -32,6 +32,7 @@ def getApplInfo(patNum=False, applId=False):
 
     r = requests.post("https://ped.uspto.gov/api/queries", json=q).json()
     if r["queryResults"]["searchResponse"]["response"]["numFound"] != 1:
+        sys.stderr.write("WARNING: Not found: %s" % (applId if applId else patNum))
         return []
     
     if applId:
@@ -67,7 +68,12 @@ def processAppl(applId):
             seenApps[applId] = {"filingDate": filingDate.strftime("%Y-%m-%d"), "children": [] }
 
             if "patentNumber" in appl:
-                labels.append( "\"%s\" [shape=rect, label=< %s >]" % (applId, "<font point-size=\"12\">Pat. %s<br />Appl. %s</font><br /><br /><font point-size=\"10\">%s</font><br />"%("{:,}".format(int(appl["patentNumber"])),applId, "<br />".join(textwrap.wrap(appl["appStatus_txt"],25)))))
+                if appl["patentNumber"][0] == "D":
+                    patNum = "D{:,}".format(int(appl["patentNumber"][1:]))
+                else:
+                    patNum = "{:,}".format(int(appl["patentNumber"]))
+
+                labels.append( "\"%s\" [shape=rect, label=< %s >]" % (applId, "<font point-size=\"12\">Pat. %s<br />Appl. %s</font><br /><br /><font point-size=\"10\">%s</font><br />"%(patNum,applId, "<br />".join(textwrap.wrap(appl["appStatus_txt"],25)))))
             else:
                 labels.append( "\"%s\" [shape=rect, style=filled, fillcolor=gray, label=< %s >]" % (applId, "<font point-size=\"12\">Appl. %s</font><br /><br /><font point-size=\"10\">%s</font><br />"%(applId,"<br />".join(textwrap.wrap(appl["appStatus_txt"],25)))))
 
@@ -116,6 +122,10 @@ def processAppl(applId):
 
 print("strict digraph G {")
 startApp = getApplInfo(patNum=patNum)
+if(startApp == []):
+    sys.stderr.write("Unable to locate patent.")
+    sys.exit(0)
+
 processAppl(startApp["applId"])
 
 # Set up the year nodes

@@ -53,12 +53,23 @@ with zipfile.ZipFile(io.BytesIO(r.content)) as z:
         docCode =  docCodes[DocumentCode] if DocumentCode in docCodes else DocumentCode
 
         docDescription = "%s - %s" % (date, docCode)
-        documentList.append((docDescription, fileName))
+        documentList.append((date, docDescription, fileName))
+    
+    #
+    # "Sorts are guaranteed to be stable. That means that when
+    #  multiple records have the same key, their original order
+    #  is preserved."
+    #
+    # - Python Docs, https://docs.python.org/3/howto/sorting.html
+    #
+    # Thus, entries from the same day retain their order in the XML.
+    #
+    documentList = sorted(documentList, key=lambda i:i[0])
     
     # Merge into the big PDF
-    for docDescription, fileName in documentList:
+    for date, docDescription, fileName in documentList:
         print(" - %s"%docDescription)
-        merger.append(io.BytesIO(z.read(fileName)), bookmark=docDescription)
+        merger.append(io.BytesIO(z.read(fileName)), bookmark=docDescription, import_bookmarks=False)
 
     merger.write("FH%s.pdf"%patNum)
 

@@ -64,7 +64,8 @@ Dependencies: Python (3.x), PyPDF2, Reportlab.
 
 `usage: depo2html.py  [ASCII Deposition File] [HTML Output File]`
 
-This is a (somewhat sloppy) script that attempts to reformat an ASCII deposition file into a more easily readable HTML file.  It's just a quick and dirty set of regular expressions, so your mileage may vary, but I find it much easier to read in this format than the original formatting.
+This is a (somewhat sloppy) script that attempts to reformat an ASCII deposition file into a more easily readable HTML file.  It's just a quick and dirty set of regular expressions, so your mileage may vary, but I find it much easier to read in this format than the original formatting. I plan to
+completely rewrite this at some point/
 
 Dependencies: Python (3.x).
 
@@ -75,3 +76,13 @@ Dependencies: Python (3.x).
 Renders a PDF to flat 300dpi monochrome images using imagemagick, adds sequential page numbers, and compresses it down to a PDF with jbig2enc to reduce the file size.  This is kind of a hacky multithreaded shell script, so it might fail dramatically.
 
 Dependencies: [jbig2enc](https://github.com/agl/jbig2enc), [imagemagick](https://imagemagick.org/index.php), [ghostscript](https://www.ghostscript.com/)
+
+## pdfFlat.sh
+
+`usage: ./pdfFlat.sh [Path to PDF Files...]`
+
+Renders a PDF to flat 300dpi JPEG images using ghostscript, and then uses img2pdf to mash them
+together into a letter-sized PDF file. Also uses exiftools on the JPEGs. Used to approximate 
+the process of printing and scanning.
+
+Dependencies: [ghostscript](https://www.ghostscript.com/), [img2pdf](https://pypi.org/project/img2pdf/); Optional: [jpegoptim](https://github.com/tjko/jpegoptim), [exiftool](https://exiftool.org/)

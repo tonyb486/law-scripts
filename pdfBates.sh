@@ -24,7 +24,7 @@ do
     PDF=$1
 
     # Process a PDF
-    OUTFILE=$(printf "$BATES_PREFIX%05d.pdf" $BATES)
+    OUTFILE=$(printf "$BATES_PREFIX%07d.pdf" $BATES)
     PAGECOUNT=$(qpdf --show-npages "$PDF")
     echo "Processing $PDF with $PAGECOUNT pages into $OUTFILE"
 
@@ -34,11 +34,11 @@ do
             if [ $i -lt $PAGECOUNT ]; then
                 if [ -z $BATES_PREFIX ]; then
                     convert -density 300 -monochrome -depth 1 "$PDF[$i]" \
-                    $TMPDIR/TMPIMG-%03d.png &
+                    $TMPDIR/TMPIMG-%09d.png &
                 else 
                     convert -density 300 -monochrome -depth 1 "$PDF[$i]" \
-                            -gravity southeast -annotate 0 "$(printf "$BATES_PREFIX%05d" $BATES)" \
-                            $TMPDIR/TMPIMG-%03d.png &
+                            -gravity southeast -annotate 0 "$(printf "$BATES_PREFIX%07d" $BATES)" \
+                            $TMPDIR/TMPIMG-%09d.png &
 
                 echo -n "...$(($i+1))"
                 BATES=$(($BATES+1))
