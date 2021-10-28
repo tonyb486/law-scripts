@@ -27,7 +27,7 @@ do
 
     if command -v jpegoptim
     then
-        echo "Applying jpegoptim..."
+        echo "Apply jpegoptim..."
         for i in $TMPDIR/TMPIMG*
         do
             echo -n "."

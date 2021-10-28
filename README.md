@@ -60,15 +60,6 @@ This script will add a yellow exhibit stamp to a PDF file in the top-left corner
 
 Dependencies: Python (3.x), PyPDF2, Reportlab.
 
-## depo2html.py
-
-`usage: depo2html.py  [ASCII Deposition File] [HTML Output File]`
-
-This is a (somewhat sloppy) script that attempts to reformat an ASCII deposition file into a more easily readable HTML file.  It's just a quick and dirty set of regular expressions, so your mileage may vary, but I find it much easier to read in this format than the original formatting. I plan to
-completely rewrite this at some point/
-
-Dependencies: Python (3.x).
-
 ## pdfBates.sh
 
 `usage: ./pdfBates.sh [Starting Bates Number with Prefix] [Path to PDF Files...]`
