@@ -5,11 +5,12 @@
 # Ten threads makes my M1 Macbook Air warm to the touch with native arm64 binaries of
 # imagemagick and jbig2enc.
 #
-PDFTHREADS=10
+PDFTHREADS=8
 JBIG2PATH=
 
 # No more edit unless broken.
 TMPDIR=$(mktemp -d)
+echo $TMPDIR
 BATES_PREFIX=$(echo $1 | sed 's/[0-9]*$//')
 BATES=$(echo $1 | sed 's/^'$BATES_PREFIX'//')
 BATES=$((10#$BATES+0))
@@ -31,16 +32,16 @@ do
     # process in chunks of $PDFTHREADS for the rendering step.
     for x in `seq 0 $PDFTHREADS $PAGECOUNT`; do
         for i in `seq $x $(($x+$PDFTHREADS-1))`; do
+            echo -n "...$(($i+1))"
             if [ $i -lt $PAGECOUNT ]; then
                 if [ -z $BATES_PREFIX ]; then
-                    convert -density 300 -monochrome -depth 1 "$PDF[$i]" \
+                    convert -density 200 -monochrome -depth 1 "$PDF[$i]" \
                     $TMPDIR/TMPIMG-%09d.png &
                 else 
                     convert -density 300 -monochrome -depth 1 "$PDF[$i]" \
                             -gravity southeast -annotate 0 "$(printf "$BATES_PREFIX%07d" $BATES)" \
                             $TMPDIR/TMPIMG-%09d.png &
 
-                echo -n "...$(($i+1))"
                 BATES=$(($BATES+1))
                 fi
             fi
@@ -48,7 +49,7 @@ do
         wait # wait until the 10 pages have rendered.
     done
 
-    echo "....."
+    echo "JBIG2....."
 
     "$JBIG2PATH"jbig2 -b $TMPDIR/output -s -p -v $TMPDIR/TMPIMG-*.png 2>/dev/null
     "$JBIG2PATH"pdf.py $TMPDIR/output > $OUTFILE

@@ -2,7 +2,7 @@ These are a few scripts that I have used in law practice to automate tasks that 
 
 These scripts are released AS-IS with ABSOLUTELY NO WARRANTY under the MIT license.  See the `LICENSE` file for details. Whenever I use them, I manually check the output to make sure it is sensible.
 
-## patFetchFH.py
+## patFetchFH.py (needs repair)
 
 `usage: patFetchFH.py <Patent Number>`
 
@@ -27,6 +27,15 @@ Dependencies: Python (3.x), Graphviz.
 A tool used to fetch multiple patents from the USPTO PatFT.  Uses a small amount of screenscraping, so this script could break, and requires BeautifulSoup (bs4)$$.  Takes a list of patent numbers as arguments, saves PDFs with the patent numbner.
 
 Dependencies: Python (3.x), BeautifulSoup (bs4)
+
+## pdfTool.py
+
+`usage: pdfTool.py [-h] [-d DPI] [-b BATES_PREFIX] [-s BATES_START] [-c CONF_LABEL] PDFS [PDFS ...]`
+
+A tool used for flattening PDF files into 1-bit compressed (Group 4) image PDFs.  It can also bates stamp them, and apply a confidentialy designation. The `-d` option sets the DPI, the default is 120 dpi. The `-b` option accepts a bates prefix, otherwise the documents will not be bates stamped. the `-s` option sets the first bates number to use, otherwise it starts at 1. The `-c` option is for a confidentiality designation to be placed on the lower-left corner of each page.
+
+Dependencies: Python (3.x), [PyMuPDF](https://github.com/pymupdf/PyMuPDF) (>=1.19.2), [Pillow](https://github.com/python-pillow/Pillow) (with libtiff).
+
 
 ## checkAnnot.py
 
@@ -59,6 +68,8 @@ Dependencies: UNIX Shell (I use zsh or bash), qpdf, pwgen.
 This script will add a yellow exhibit stamp to a PDF file in the top-left corner.  The exhibit stamp contains the title (*e.g.*, Exhibit A), and room for the case title and the case number below it.  As with any shell invocation, enter arguments in quotes if they contain spaces.
 
 Dependencies: Python (3.x), PyPDF2, Reportlab.
+
+# Deprecated 
 
 ## pdfBates.sh
 
