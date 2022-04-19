@@ -24,7 +24,7 @@ Dependencies: Python (3.x), Graphviz.
 
 `usage: patFetch.py [patents...]`
 
-A tool used to fetch multiple patents from the USPTO PatFT.  Uses a small amount of screenscraping, so this script could break, and requires BeautifulSoup (bs4)$$.  Takes a list of patent numbers as arguments, saves PDFs with the patent numbner.
+A tool used to fetch multiple patents from the USPTO PatFT.  Uses a small amount of screenscraping, so this script could break, and requires BeautifulSoup (bs4).  Takes a list of patent numbers as arguments, saves PDFs with the patent numbner.
 
 Dependencies: Python (3.x), BeautifulSoup (bs4)
 
@@ -35,7 +35,6 @@ Dependencies: Python (3.x), BeautifulSoup (bs4)
 A tool used for flattening PDF files into 1-bit compressed (Group 4) image PDFs.  It can also bates stamp them, and apply a confidentialy designation. The `-d` option sets the DPI, the default is 120 dpi. The `-b` option accepts a bates prefix, otherwise the documents will not be bates stamped. the `-s` option sets the first bates number to use, otherwise it starts at 1. The `-c` option is for a confidentiality designation to be placed on the lower-left corner of each page.
 
 Dependencies: Python (3.x), [PyMuPDF](https://github.com/pymupdf/PyMuPDF) (>=1.19.2), [Pillow](https://github.com/python-pillow/Pillow) (with libtiff).
-
 
 ## checkAnnot.py
 

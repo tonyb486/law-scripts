@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from PIL import Image, ImageDraw, ImageFont, features
-import sys, fitz, io, argparse
+import sys, fitz, io, argparse, random
 from tqdm import tqdm
 
 def main():
@@ -11,6 +11,8 @@ def main():
     parser.add_argument('-b', '--bates-prefix', type=str, default=False, help="bates prefix to stamp")
     parser.add_argument('-s', '--bates-start', type=int, default=1, help="starting number for bates stamping")
     parser.add_argument('-c', '--conf-label', type=str, default=False, help="add a confidentialty label")
+    parser.add_argument('-r', '--rand-skew', action='store_true', help="rotate each page slightly to look scanned")
+    parser.add_argument('--skew-max', type=int, default=10, help="max amount to rotate if (in 10ths of a degree) (10 default)")
 
     args = parser.parse_args()
 
@@ -33,6 +35,12 @@ def main():
         # Render the page
         pix = page.get_pixmap(dpi=dpi)  
         with Image.open(io.BytesIO(pix.tobytes())) as im:
+
+            # Since this is a popular thing apparently, just for fun
+            if args.rand_skew:
+                im = im.rotate(random.randrange(-args.skew_max,args.skew_max)*0.1, 
+                              expand=False, resample=Image.BILINEAR,
+                              fillcolor=(5,5,5))
 
             # Process the page, draw on it as needed
             draw = ImageDraw.Draw(im)
