@@ -2,6 +2,15 @@ These are a few scripts that I have used in law practice to automate tasks that 
 
 These scripts are released AS-IS with ABSOLUTELY NO WARRANTY under the MIT license.  See the `LICENSE` file for details. Whenever I use them, I manually check the output to make sure it is sensible.
 
+## docxCrush.sh
+
+`usage: docxCrush.sh <file.docx>`
+
+Takes all of the non-JPEG images in a DOCX file, and converts them into JPEGs of reasonable quality. Absolute quick and dirty trick, it just unzips, compresses, and re-zips a new file. Useful for making needlessly giant word documents small enough to actually email around. Word needs a button for this. Quick script, this might horribly mangle your word document - check it. Saves its outout to <file.docx>.small.docx.
+
+Dependencies: Imagemagick, 7zip command line (7zz)
+
+
 ## patFetchFH.py (needs repair)
 
 `usage: patFetchFH.py <Patent Number>`
