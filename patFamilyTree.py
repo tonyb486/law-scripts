@@ -2,7 +2,6 @@
 
 import requests, json, sys, textwrap, datetime, argparse
 
-
 try:
    with open("cache.json", "r") as w:
        cache = json.loads(w.read())
@@ -20,6 +19,8 @@ args = parser.parse_args()
 
 patNum = args.patent
 
+headers= {"User-Agent": "patFamilyTree.py/0.1"}
+
 def getApplInfo(patNum=False, applId=False):
     if applId and applId in cache:
         sys.stderr.write("Cache hit on %s!\n"%(applId))
@@ -30,9 +31,13 @@ def getApplInfo(patNum=False, applId=False):
     elif applId:
         q = {"searchText": "applId:(%s)"%applId, "qf":"applId"}
 
-    r = requests.post("https://ped.uspto.gov/api/queries", json=q).json()
+    r = requests.post("https://ped.uspto.gov/api/queries", json=q, headers=headers)
+    r = r.json()
+
     if r["queryResults"]["searchResponse"]["response"]["numFound"] != 1:
         sys.stderr.write("WARNING: Not found: %s" % (applId if applId else patNum))
+        if not applId:
+            return getApplInfo(applId=patNum)
         return []
     
     if applId:
