@@ -3,7 +3,7 @@ import sys, PyPDF2
 
 for pdf in sys.argv[1:]:
     with open(pdf, "rb") as fd:
-        pdfFile = PyPDF2.PdfFileReader(fd)
-        for i in range(pdfFile.getNumPages()):
-            if "/Annots" in pdfFile.getPage(i):
-                print("%s has annotation on page %d."%(pdf,i))
+        pdfFile = PyPDF2.PdfReader(fd)
+        for i,page in enumerate(pdfFile.pages):
+            if "/Annots" in page:
+                print(f"{pdf} has annotation on page {i+1}.")
