@@ -11,17 +11,19 @@ def main():
     parser.add_argument('-b', '--bates-prefix', type=str, default=False, help="bates prefix to stamp")
     parser.add_argument('-s', '--bates-start', type=int, default=1, help="starting number for bates stamping")
     parser.add_argument('-c', '--conf-label', type=str, default=False, help="add a confidentialty label")
+    parser.add_argument('-C', '--color-jpeg', action='store_true', help="use color JPEGs instead of B&W TIFFs")
 
     args = parser.parse_args()
 
     dpi = args.dpi
     bates_start = args.bates_start
 
-    # Need libtiff as part of Pillow.
-    if not features.check_codec("libtiff"):
-        print("Pillow compiled without libtiff support. Please reinstall it.")
-        print("libtiff is used to provide the image compression used.")
-        sys.exit(-1)
+    if not args.color_jpeg:
+        # Need libtiff as part of Pillow.
+        if not features.check_codec("libtiff"):
+            print("Pillow compiled without libtiff support. Please reinstall it.")
+            print("libtiff is used to provide the image compression used.")
+            sys.exit(-1)
 
     # Figure out the font size irrespective of the DPI
     fontSize = int(dpi * 0.17) # (12 points-ish - stupid non-metric))
@@ -50,11 +52,15 @@ def main():
 
             # Compress to TIFF (fax-style Group 4 compression) and back
             with io.BytesIO() as tmp:
-                im = im.convert("1") # Monochrome
-                im.save(tmp,format="tiff",compression="group4", dpi=(dpi,dpi)) # Compressed
+                if args.color_jpeg:
+                    im.save(tmp,format="jpeg", dpi=(dpi,dpi)) # Compressed
+                else:
+                    im = im.convert("1") # Monochrome
+                    im.save(tmp,format="tiff",compression="group4", dpi=(dpi,dpi)) # Compressed
 
                 # Convert this to a PDF object with PyMuPDF again
-                with fitz.open(stream=tmp, filetype="tiff") as doc:
+                filetype = "jpeg" if args.color_jpeg else "tiff"
+                with fitz.open(stream=tmp, filetype=filetype) as doc:
                     stream = doc.convert_to_pdf()
                     return fitz.open("pdf", stream)
 
