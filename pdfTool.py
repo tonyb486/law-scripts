@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 from PIL import Image, ImageDraw, ImageFont, features
-import sys, fitz, io, argparse, random
+from multiprocessing import Pool, cpu_count
 from tqdm import tqdm
+
+import sys, fitz, io, argparse, random
 
 def main():
 
@@ -20,6 +22,9 @@ def main():
 
     if args.color_pages:
         color_pages = [int(i)-1 for i in args.color_pages.split(',')]
+    else:
+        color_pages = []
+
 
     dpi = args.dpi
     bates_start = args.bates_start
