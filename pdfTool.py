@@ -7,7 +7,6 @@ import tempfile
 from multiprocessing import Process, Queue, cpu_count
 
 import fitz
-import tqdm
 from PIL import Image, ImageDraw, ImageFont, features
 
 parser = argparse.ArgumentParser(description="Flatten PDFs into 1-bit image PDFs.")
@@ -157,10 +156,10 @@ def worker(inqueue, outqueue, tmpdirname):
             return
 
         # load the PDF if we haven't yet
-        pdf_file, page, bs = job
-        if pdf_file != cur_pdf:
-            pdf = fitz.open(pdf_file)
-            cur_pdf = pdf_file
+        pdff, page, bs = job
+        if pdff != cur_pdf:
+            pdf = fitz.open(pdff)
+            cur_pdf = pdff
 
         # return the processed file
         outqueue.put(
@@ -182,27 +181,27 @@ if __name__ == "__main__":
             p.start()
 
         # Process all the PDF files
-        for pdf_file in args.pdfs:
+        for pdff in args.pdfs:
             # Open the PDF file
-            pdf = fitz.open(pdf_file)
+            pdf = fitz.open(pdff)
             num_pages = pdf.page_count
             # Print progress information
             if args.bates_prefix:
                 print(
                     "Rendering '%s' (%d pages) (%s to %s)..."
                     % (
-                        pdf_file,
+                        pdff,
                         num_pages,
                         "%s%08d" % (args.bates_prefix, bates_start),
                         "%s%08d" % (args.bates_prefix, bates_start + num_pages - 1),
                     )
                 )
             else:
-                print("Rendering '%s' (%d pages)..." % (pdf_file, num_pages))
+                print("Rendering '%s' (%d pages)..." % (pdff, num_pages))
 
             # Tell the workers to render pixmaps
             for i in range(num_pages):
-                inqueue.put((pdf_file, i, bates_start))
+                inqueue.put((pdff, i, bates_start))
 
             # Collect the output data from the work queue
             # (list of one-page PDF files)
@@ -210,11 +209,11 @@ if __name__ == "__main__":
 
             # Figure out what to call the output file
             if args.test_page:
-                filename = f"{pdf_file}.TEST.pdf"
+                filename = f"{pdff}.TEST.pdf"
             elif args.bates_prefix:
                 filename = "%s%08d.pdf" % (args.bates_prefix, bates_start)
             else:
-                filename = f"{pdf_file}.FLAT.pdf"
+                filename = f"{pdff}.FLAT.pdf"
 
             # Combine the pages back to a single PDF
             print(f"Saving PDF at {filename}...")
